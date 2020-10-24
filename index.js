@@ -2,6 +2,13 @@ random=()=>
 {
 	return(Math.floor((Math.random()*99)+1));
 }
+$('.card-cell').on('click',(e)=>
+{
+	if(e.target.className=="card-cell done")
+	{
+		$(e.target).css("background-color","rgba(255,255,7,0.9)")
+	}
+})
 numbers=[];
 for (var i=1;i<100;i++)
 {
@@ -24,7 +31,6 @@ s=()=>
 card=(list)=>
 {
 	var i=(Math.floor(Math.random() * list.length))
-	console.log("randmo"+i)
 	return list[i];
 }
 card_rows=$('.card-row');
@@ -41,15 +47,14 @@ card_rows.map((index,c)=>
 		}
 		not.push(remove);
 		$(remove).text(random());
-		console.log(not);
 	}
 })
 done=()=>
 {
 	var selected=s();
-	console.log(selected);
 	$('.no').text(selected);
 	var cells=$('.card-cell')
+	$(".card-cell").attr("class","card-cell")
 	cells.map(c=>
 	{
 
@@ -59,21 +64,16 @@ done=()=>
 			
 		}
 	})
-	console.log(cells.length)
 	var cardrow=$('.card-row');
-	allrow=true;
 	cardrow.map((ind,c)=>
 	{
 		var cells=$(c).children();
 		var alldone=true;
 		for(var i=0;i<cells.length;i++)
 		{
-			console.log($(cells[i]).text().trim()=="");
 			if($(cells[i]).text().trim()!="" && $(cells[i]).css("background")!="rgba(255, 255, 7, 0.9) none repeat scroll 0% 0% / auto padding-box border-box" )
 			{
-				console.log("no",ind)
 				alldone=false;
-				allrow=false;
 				break;
 			}
 		}
@@ -83,8 +83,25 @@ done=()=>
 			$(c).css("background","green")
 		}
 	})
-	if(allrow)
-	{
-		$('.con').attr('class',"confetti");
-	}
+	var row1=$('.card:nth-child(1)').children().filter((n,m)=>
+{
+	var color=$(m).css("background");
+	return color=="rgb(0, 128, 0) none repeat scroll 0% 0% / auto padding-box border-box";
+})
+console.log("ok",row1.length)
+var row2=$('.card:nth-child(2)').children().filter((n,m)=>
+{
+	var color=$(m).css("background");
+	return color=="rgb(0, 128, 0) none repeat scroll 0% 0% / auto padding-box border-box";
+})
+var row3=$('.card:nth-child(3)').children().filter((n,m)=>
+{
+	var color=$(m).css("background");
+	return color=="rgb(0, 128, 0) none repeat scroll 0% 0% / auto padding-box border-box";
+})
+if(row1.length==3 || row2.length==3 || row3.length==3)
+{
+	$('.con').attr("class","confetti")
 }
+}
+
