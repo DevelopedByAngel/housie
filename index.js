@@ -88,7 +88,6 @@ done=()=>
 	var color=$(m).css("background");
 	return color=="rgb(0, 128, 0) none repeat scroll 0% 0% / auto padding-box border-box";
 })
-console.log("ok",row1.length)
 var row2=$('.card:nth-child(2)').children().filter((n,m)=>
 {
 	var color=$(m).css("background");
@@ -105,3 +104,11 @@ if(row1.length==3 || row2.length==3 || row3.length==3)
 }
 }
 
+const start=()=>
+{
+	setInterval(()=>
+		{
+			done();
+		}, 
+		5000)
+}
